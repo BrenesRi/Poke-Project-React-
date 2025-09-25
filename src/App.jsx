@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 import PokemonCard from './components/PokemonCard'
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     try {
       const res = await fetch(BASE_URL + id)
       const data = await res.json()
-      setPokemonData(prevData => [...prevData, data])
+      setPokemonData(prevPokemonData => [...prevPokemonData, data])
     } catch (error) {
       console.error("Error fetching Pokémon data:", error)
     }
@@ -22,10 +22,12 @@ function App() {
   }
 
   useEffect(() => {
-    fetchPokemon(1)
+    fetchAllPokemon()
   }, [])
 
-  console.log(pokemonData)
+  useEffect(() => {
+    console.log(pokemonData)
+  }, [pokemonData])
 
    return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-900 to-blue-700 py-8">
@@ -34,9 +36,9 @@ function App() {
           SHINY POKE CARDS: DEMO
         </h1>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          <PokemonCard pokemonData={pokemonData} />
-          <PokemonCard pokemonData={pokemonData} />
-          <PokemonCard pokemonData={pokemonData} />
+          {pokemonData.map((pokemon, index) => (
+            <PokemonCard key={index} pokemonData={[pokemon]} />
+          ))}
         </div>
       </div>  
     </div>

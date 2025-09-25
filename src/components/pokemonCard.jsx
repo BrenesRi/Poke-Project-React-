@@ -14,7 +14,7 @@ export default function PokemonCard({pokemonData}) {
     return (
         <div className="bg-white rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow">
             <img 
-                src={pokemon.sprites.front_default} 
+                src={pokemon.sprites.front_shiny} 
                 alt={`${pokemon.name} sprite`}
                 className="w-48 h-48 mx-auto object-contain" 
             />
